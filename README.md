@@ -103,3 +103,45 @@ locally.
 
 There is no database and no login: the signed link carries the only state that needs
 to survive between the two steps.
+
+## Deployment (Azure container)
+
+The app builds to a self-contained server (`output: 'standalone'`), so one container
+serves every partner. Adding a landing page is a record in Xano — never a redeploy.
+
+```bash
+docker build --build-arg XANO_IMAGE_HOST=<your>.xano.io -t landingpages .
+docker run -p 3000:3000 --env-file .env.local landingpages
+```
+
+### Build-time vs runtime variables
+
+`XANO_IMAGE_HOST` must be passed as a **build arg**. With standalone output Next
+serialises the `images.remotePatterns` config into the build, so setting it only at
+runtime is too late and partner logos will be rejected by next/image.
+
+Everything else is read at runtime — set it in Container Apps secrets / App Service
+configuration:
+
+```
+LMS_BASE_URL, LMS_AUTH_BASIC_TOKEN
+XANO_BASE_URL, XANO_UPLOAD_PATH, XANO_IMAGE_HOST
+ACTIVATION_TOKEN_SECRET
+SENDGRID_API_KEY, MAIL_FROM, MAIL_FROM_NAME
+NEXT_PUBLIC_BASE_URL      <- the real https:// URL
+```
+
+⚠️ **`NEXT_PUBLIC_BASE_URL`** builds the activation link inside every verification
+email. If it is wrong, emails still send but every link points at the wrong host.
+
+⚠️ **Do not set `MAIL_OVERRIDE_TO`** in production — it redirects all customer mail
+to one inbox. The server logs a warning if it is set, but does not refuse.
+
+Note the standalone server does **not** read `.env.local`; the container must receive
+real environment variables.
+
+### Why uploads must go to Xano
+
+The container filesystem is ephemeral. Logos uploaded through `/admin` go to Xano's
+vault, so they survive restarts and redeploys. The local `public/` fallback is
+development-only and is refused when `NODE_ENV=production`.
