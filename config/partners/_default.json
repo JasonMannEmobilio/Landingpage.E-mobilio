@@ -1,0 +1,54 @@
+{
+  "slug": "_default",
+  "companyName": "Partner",
+  "design": "classic",
+  "usergroupId": "",
+  "displayName": "{{companyName}} Ladekarte",
+  "subtitle": "Ein Produkt der e-mobilio GmbH, vermittelt durch {{companyName}}",
+  "headline": "Aktivieren Sie hier Ihre neue {{displayName}}",
+  "logo": "/logos/e-mobilio.jpg",
+  "emobilioLogo": "/logos/e-mobilio.jpg",
+  "card": {
+    "image": "/cards/_default.svg",
+    "alt": "{{displayName}}"
+  },
+  "theme": {
+    "primaryColor": "#1a2b5f",
+    "accentColor": "#f5c518",
+    "backgroundColor": "#f6f7f9",
+    "fontFamily": "Inter, sans-serif"
+  },
+  "formFields": {
+    "showAnrede": true,
+    "showZusatz": false,
+    "showTelefon": false,
+    "paymentMethod": "SEPA-Lastschrift"
+  },
+  "placeholders": {
+    "vorname": "Max",
+    "name": "Mustermann",
+    "strasse": "Musterstraße 1",
+    "zusatz": "z.B. Hinterhaus",
+    "plz": "12345",
+    "ort": "Musterstadt",
+    "email": "max@beispiel.de",
+    "telefon": "+49 123 456789",
+    "iban": "IBAN",
+    "bic": "BIC",
+    "kontoinhaber": "Vor- und Nachname Kontoinhaber/-in",
+    "bankname": "Name der Bank",
+    "kartennummer": "Bitte Ladekartennummer eingeben"
+  },
+  "legal": {
+    "datenschutzUrl": "https://e-mobilio.com/datenschutz",
+    "nutzungsbedingungenUrl": "https://e-mobilio.com/nutzungsbedingungen",
+    "consentText": "Ja, ich bestätige, von der Verarbeitung meiner Daten durch die e-mobilio GmbH entsprechend der Datenschutzerklärung Kenntnis erlangt zu haben. Ich habe die Nutzungsbedingungen gelesen und bin mit diesen einverstanden.",
+    "envUrl": "/legal/endnutzervereinbarung-12-2025.pdf",
+    "envVersion": "12-2025",
+    "envConsentText": "Ich habe die Endnutzervereinbarung (ENV) der e-mobilio GmbH gelesen und akzeptiere diese."
+  },
+  "api": {
+    "registrationEndpoint": "/api/register",
+    "redirectAfterSuccess": "/success"
+  }
+}

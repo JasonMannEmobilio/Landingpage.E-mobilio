@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * These pages are always light: partner branding sits on a white card, and the
+ * background colour is driven per partner by --color-bg. There is deliberately no
+ * dark-mode block — inverting the text while the wrapper forces a white background
+ * produced dark-on-dark text on the 404 and index pages.
+ */
+:root {
+  --background: #f6f7f9;
+  --foreground: #171717;
+  /* Overridden per partner by getThemeVariables(); these are the fallbacks. */
+  --color-primary: #1a2b5f;
+  --color-accent: #f5c518;
+  --color-button: #2d8a4e;
+  --color-button-text: #ffffff;
+  --color-bg: #ffffff;
+  --font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-family);
+}
+
+/* Consistent focus treatment for every interactive element. */
+@layer base {
+  :where(input, select, textarea, button, a):focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

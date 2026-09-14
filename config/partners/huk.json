@@ -1,0 +1,20 @@
+{
+  "slug": "huk",
+  "companyName": "HUK-COBURG",
+  "usergroupId": "3109",
+  "logo": "/logos/huk.svg",
+  "card": {
+    "image": "/cards/huk.svg"
+  },
+  "theme": {
+    "primaryColor": "#1a2b5f",
+    "accentColor": "#f5c518"
+  },
+
+  "displayName": "HUK-Ladekarte",
+  "subtitle": "Ein Produkt der e-mobilio GmbH, vermittelt durch die HUK-COBURG Digitale Services GmbH",
+  "formFields": {
+    "showZusatz": true,
+    "showTelefon": true
+  }
+}
