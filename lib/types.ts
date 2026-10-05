@@ -66,6 +66,8 @@ export const partnerConfigSchema = z.object({
   subtitle: z.string(),
   headline: z.string(),
   logo: z.string(),
+  /** Optional square icon for the browser tab; falls back to the logo. */
+  favicon: z.string().optional(),
   emobilioLogo: z.string(),
   card: cardSchema,
   theme: themeSchema,

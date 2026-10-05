@@ -10,6 +10,15 @@ export function Footer({ config }: FooterProps) {
     <footer className="mt-10 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
       <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-5">
         <a
+          href={`/${config.slug}/support`}
+          className="rounded transition-colors hover:text-[var(--color-primary)] hover:underline"
+        >
+          Support
+        </a>
+        <span className="hidden text-gray-300 sm:inline" aria-hidden="true">
+          •
+        </span>
+        <a
           href={config.legal.datenschutzUrl}
           target="_blank"
           rel="noopener noreferrer"

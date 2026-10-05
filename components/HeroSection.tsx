@@ -4,9 +4,13 @@ import Image from 'next/image';
 
 interface HeroSectionProps {
   config: PartnerConfig;
+  /** Overrides the partner headline, e.g. on the support page. */
+  heading?: string;
+  /** Overrides the subtitle shown under the headline. */
+  subline?: string;
 }
 
-export function HeroSection({ config }: HeroSectionProps) {
+export function HeroSection({ config, heading, subline }: HeroSectionProps) {
   return (
     <section className="mb-8 flex flex-col items-center text-center">
       <div className="mb-6 flex items-center justify-center gap-5 sm:gap-7">
@@ -29,11 +33,11 @@ export function HeroSection({ config }: HeroSectionProps) {
 
       {/* Headline is deliberately NOT themed — it stays black for every partner. */}
       <h1 className="text-balance max-w-lg text-2xl font-bold leading-tight text-gray-900 sm:text-3xl">
-        {config.headline}
+        {heading ?? config.headline}
       </h1>
 
       <p className="text-balance mt-3 max-w-md text-sm leading-relaxed text-gray-500">
-        {config.subtitle}
+        {subline ?? config.subtitle}
       </p>
     </section>
   );
