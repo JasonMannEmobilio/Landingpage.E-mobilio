@@ -21,11 +21,16 @@ RUN apk add --no-cache libc6-compat
 FROM base AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
-# The lockfile is written by npm 11; node:20-alpine ships npm 10, which resolves
-# sharp's optional wasm32 dependencies differently and makes `npm ci` fail with
-# "Missing: @emnapi/runtime from lock file". Pin npm to the version that produced
-# the lockfile so the install is reproducible.
-RUN npm install -g npm@11  && npm ci
+# `npm install`, not `npm ci`.
+#
+# The lockfile is generated on Windows, where npm will not resolve the
+# dependencies of sharp's Linux-only optional packages (@img/sharp-wasm32 pulls
+# in @emnapi/*). npm ci refuses an incomplete tree and fails the build; npm
+# install resolves the missing platform pieces on the target OS while still
+# honouring the pinned versions in the lockfile for everything else.
+#
+# To restore npm ci, regenerate package-lock.json on Linux.
+RUN npm install --no-audit --no-fund
 
 # --- build ------------------------------------------------------------------
 FROM base AS builder
