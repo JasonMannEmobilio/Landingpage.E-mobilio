@@ -2,7 +2,8 @@
  * Xano client. Everything instance-specific lives at the top of this file —
  * if your endpoint paths or column names differ, change them HERE and nowhere else.
  *
- * All calls are server-side only. XANO_API_KEY must never be exposed to the browser
+ * All calls are server-side only. XANO_API_KEY holds the shared secret that guards
+ * the server-to-server endpoints and must never be exposed to the browser
  * (i.e. never rename it to NEXT_PUBLIC_*).
  */
 
@@ -155,9 +156,15 @@ export async function xanoFetch<T>(
   const headers: Record<string, string> = { Accept: 'application/json' };
 
   if (body !== undefined) headers['Content-Type'] = 'application/json';
-  // Only the admin endpoints are Private; the rest are public, so we send the
-  // admin JWT and nothing else. No API key is involved.
+
+  // Admin endpoints authenticate with the user's JWT.
   if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+
+  // The server-to-server endpoints (partner list, activations, ENV acceptances)
+  // are guarded by a shared secret rather than a JWT, because they are called
+  // during registration and activation when nobody is logged in. Sent on every
+  // request: endpoints that do not check it simply ignore the header.
+  if (process.env.XANO_API_KEY) headers['X-Api-Key'] = process.env.XANO_API_KEY;
 
   const response = await fetch(`${baseUrl()}${path}`, {
     method,
