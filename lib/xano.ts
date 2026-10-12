@@ -342,7 +342,10 @@ export async function fetchActivationFailures(authToken?: string): Promise<Activ
   try {
     const rows = await xanoFetch<ActivationFailure[] | null>(XANO_ROUTES.activationFailures, { authToken });
     return Array.isArray(rows) ? rows : [];
-  } catch {
+  } catch (error) {
+    // Returning [] keeps the dashboard usable, but the reason must not vanish —
+    // a missing endpoint and a broken one look identical otherwise.
+    console.error('Could not load activation failures:', error);
     return [];
   }
 }
