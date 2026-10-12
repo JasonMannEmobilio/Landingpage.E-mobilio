@@ -12,6 +12,7 @@ export const XANO_ROUTES = {
   partner: (slug: string) => `/partners/slug/${slug}`,
   activations: '/activations',
   envAcceptances: '/env-acceptances',
+  activationFailures: '/activation-failures',
   stats: '/partners/stats',
   /** Optional plain list of activation rows; used to count in-app when /partners/stats can't. */
   activationsList: '/activations',
@@ -288,6 +289,62 @@ export async function fetchActivationStats(authToken?: string): Promise<Activati
 
   if (aggregateError) throw aggregateError;
   return [];
+}
+
+/** Why a card activation did not go through. */
+export type ActivationFailureReason = 'not_found' | 'lms_error' | 'invalid_token';
+
+export interface ActivationFailure {
+  id?: number;
+  partner_slug: string;
+  customer_id?: string;
+  entered_number: string;
+  reason: ActivationFailureReason;
+  failed_at?: number;
+}
+
+/**
+ * Records a failed activation attempt.
+ *
+ * Diagnostic, not bookkeeping: the card prints a contract id (DE EMC C...) while
+ * the lookup matches the RFID externalId, so a customer can type a perfectly
+ * valid number that will never be found. Without this, that surfaces only as
+ * poor conversion with no visible cause.
+ *
+ * Never throws — a diagnostic write must not cost the customer their attempt.
+ */
+export async function logActivationFailure(entry: {
+  partner_slug: string;
+  customer_id: string | number | null;
+  entered_number: string;
+  reason: ActivationFailureReason;
+}): Promise<void> {
+  if (!isXanoConfigured()) return;
+
+  try {
+    await xanoFetch(XANO_ROUTES.activationFailures, {
+      method: 'POST',
+      body: {
+        partner_slug: entry.partner_slug,
+        customer_id: entry.customer_id === null ? '' : String(entry.customer_id),
+        entered_number: entry.entered_number,
+        reason: entry.reason,
+        failed_at: Date.now(),
+      },
+    });
+  } catch (error) {
+    console.error('Failed to record activation failure:', error);
+  }
+}
+
+/** Returns [] when the endpoint does not exist yet, so the dashboard degrades quietly. */
+export async function fetchActivationFailures(authToken?: string): Promise<ActivationFailure[]> {
+  try {
+    const rows = await xanoFetch<ActivationFailure[] | null>(XANO_ROUTES.activationFailures, { authToken });
+    return Array.isArray(rows) ? rows : [];
+  } catch {
+    return [];
+  }
 }
 
 /**

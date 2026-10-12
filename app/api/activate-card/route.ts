@@ -4,7 +4,7 @@ import { getAccessToken, lmsFetch, normalizeCardNumber, LmsError } from '../../.
 import { verifyActivationToken } from '../../../lib/token';
 import { sendActivationEmail } from '../../../lib/email';
 import { getPartnerConfig } from '../../../lib/getPartnerConfig';
-import { logActivation } from '../../../lib/xano';
+import { logActivation, logActivationFailure } from '../../../lib/xano';
 
 const activateSchema = z.object({
   cardNumber: z.string().min(1),
@@ -22,12 +22,26 @@ interface CustomerResponse {
 }
 
 export async function POST(request: Request) {
+  // Gefüllt während der Verarbeitung, damit der catch-Block den Fehlversuch
+  // noch zuordnen kann.
+  const failureContext: { partner: string; customerId: string | null; enteredNumber: string } = {
+    partner: 'unknown',
+    customerId: null,
+    enteredNumber: '',
+  };
+
   try {
     const { cardNumber, token } = activateSchema.parse(await request.json());
 
     // Replaces Bubble's "Current User" — the signed link is the identity.
     const payload = verifyActivationToken(token);
     if (!payload) {
+      await logActivationFailure({
+        partner_slug: 'unknown',
+        customer_id: null,
+        entered_number: normalizeCardNumber(cardNumber),
+        reason: 'invalid_token',
+      });
       return NextResponse.json(
         { error: 'Dieser Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen an.' },
         { status: 401 }
@@ -41,6 +55,10 @@ export async function POST(request: Request) {
 
     const externalId = normalizeCardNumber(cardNumber);
     const customerId = payload.customerId;
+
+    failureContext.partner = payload.partner;
+    failureContext.customerId = customerId;
+    failureContext.enteredNumber = externalId;
 
     // Step 2 — Retrieve token
     const accessToken = await getAccessToken();
@@ -61,6 +79,14 @@ export async function POST(request: Request) {
     );
 
     if (!card) {
+      // Der diagnostisch wertvollste Fall: zeigt, ob Kunden die falsche Nummer
+      // von der Karte ablesen (Vertragsnummer statt RFID-externalId).
+      await logActivationFailure({
+        partner_slug: payload.partner,
+        customer_id: customerId,
+        entered_number: externalId,
+        reason: 'not_found',
+      });
       return NextResponse.json(
         { error: 'Diese Ladekartennummer wurde nicht gefunden. Bitte prüfen Sie Ihre Eingabe.' },
         { status: 404 }
@@ -106,6 +132,12 @@ export async function POST(request: Request) {
     }
     if (error instanceof LmsError) {
       console.error('LMS error:', error.message, error.detail ?? '');
+      await logActivationFailure({
+        partner_slug: failureContext.partner,
+        customer_id: failureContext.customerId,
+        entered_number: failureContext.enteredNumber,
+        reason: 'lms_error',
+      });
       return NextResponse.json({ error: 'Aktivierung fehlgeschlagen. Bitte versuchen Sie es später erneut.' }, { status: 502 });
     }
     console.error('API Route Error:', error);

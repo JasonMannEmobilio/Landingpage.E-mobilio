@@ -1,10 +1,11 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
 import { requireAdmin } from '../../lib/adminSession';
-import { fetchPartners, fetchActivationStats, isXanoConfigured } from '../../lib/xano';
+import { fetchPartners, fetchActivationStats, fetchActivationFailures, isXanoConfigured } from '../../lib/xano';
 import { getPartnerConfig, listLocalPartnerSlugs } from '../../lib/getPartnerConfig';
 import { PartnerTable, PartnerRow } from '../../components/admin/PartnerTable';
 import { NewPartnerForm } from '../../components/admin/NewPartnerForm';
+import { FailedActivations } from '../../components/admin/FailedActivations';
 
 export const dynamic = 'force-dynamic';
 
@@ -89,6 +90,7 @@ export default async function AdminPage() {
   }
 
   const { rows, warning } = await loadRows(token);
+  const failures = await fetchActivationFailures(token);
   const totalActivations = rows.reduce((sum, r) => sum + r.activations, 0);
 
   return (
@@ -129,6 +131,7 @@ export default async function AdminPage() {
         )}
 
         <PartnerTable partners={rows} />
+        <FailedActivations failures={failures} />
       </div>
     </div>
   );
