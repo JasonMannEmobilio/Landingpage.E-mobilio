@@ -1,0 +1,13 @@
+# Spalten: slug,company_name,usergroup_id,logo,card_image,primary_color,accent_color,display_name,subtitle
+# PFLICHT: slug, company_name, usergroup_id. Rest optional.
+# WICHTIG: slug muss exakt dem heutigen Bubble-Pfad entsprechen (service.e-mobilio.de/<slug>).
+# usergroup_id: bitte prüfen — vermutlich jeweils die "Endkunden"-Gruppe.
+slug,company_name,usergroup_id,logo,card_image,primary_color,accent_color,display_name,subtitle
+ah-michel,Autohaus Michel,7084,,,,,,
+autoexpo,autoexpo Deutsche Auto-Markt GmbH,8355,,,,,,
+ah-fuchs,Autohaus Fuchs,8542,,,,,,
+cloppenburg,Cloppenburg Automobil SE,7751,,,,,,
+nord-ostsee,Nord-Ostsee Automobile,3321,,,,,,
+starke,Starke Gruppe,3312,,,,,,
+huk,HUK-COBURG,4159,/logos/huk.svg,/cards/huk.svg,#1a2b5f,#f5c518,HUK-Ladekarte,Ein Produkt der e-mobilio GmbH vermittelt durch die HUK-COBURG Digitale Services GmbH
+blume2000,Blume2000,3369,,,,,,
