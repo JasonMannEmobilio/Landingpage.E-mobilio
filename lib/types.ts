@@ -42,6 +42,8 @@ export const cardSchema = z.object({
 export const legalSchema = z.object({
   datenschutzUrl: z.string(),
   nutzungsbedingungenUrl: z.string(),
+  widerrufUrl: z.string(),
+  impressumUrl: z.string(),
   consentText: z.string(),
   /** Endnutzervereinbarung (ENV) — must be linked and actively accepted by the user. */
   envUrl: z.string(),

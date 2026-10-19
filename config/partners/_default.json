@@ -40,12 +40,14 @@
     "kartennummer": "Bitte Ladekartennummer eingeben"
   },
   "legal": {
-    "datenschutzUrl": "https://e-mobilio.com/datenschutz",
-    "nutzungsbedingungenUrl": "https://e-mobilio.com/nutzungsbedingungen",
+    "datenschutzUrl": "https://e-mobilio.de/datenschutz",
+    "nutzungsbedingungenUrl": "https://e-mobilio.de/nutzungsbedingungen",
     "consentText": "Ja, ich bestätige, von der Verarbeitung meiner Daten durch die e-mobilio GmbH entsprechend der Datenschutzerklärung Kenntnis erlangt zu haben. Ich habe die Nutzungsbedingungen gelesen und bin mit diesen einverstanden.",
     "envUrl": "/legal/endnutzervereinbarung-12-2025.pdf",
     "envVersion": "12-2025",
-    "envConsentText": "Ich habe die Endnutzervereinbarung (ENV) der e-mobilio GmbH gelesen und akzeptiere diese."
+    "envConsentText": "Ich habe die Endnutzervereinbarung (ENV) der e-mobilio GmbH gelesen und akzeptiere diese.",
+    "widerrufUrl": "https://e-mobilio.de/widerrufsbelehrung",
+    "impressumUrl": "https://e-mobilio.de/impressum"
   },
   "api": {
     "registrationEndpoint": "/api/register",
