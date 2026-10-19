@@ -13,8 +13,8 @@ interface HeroSectionProps {
 export function HeroSection({ config, heading, subline }: HeroSectionProps) {
   return (
     <section className="mb-8 flex flex-col items-center text-center">
-      <div className="mb-6 flex items-center justify-center gap-5 sm:gap-7">
-        <div className="relative h-12 w-28 sm:h-14 sm:w-32">
+      <div className="mb-6 flex items-center justify-center gap-6 sm:gap-8">
+        <div className="relative h-16 w-40 sm:h-20 sm:w-48">
           <Image
             src={config.logo}
             alt={`${config.companyName} Logo`}
@@ -24,9 +24,9 @@ export function HeroSection({ config, heading, subline }: HeroSectionProps) {
           />
         </div>
 
-        <div className="h-8 w-px bg-gray-300" aria-hidden="true" />
+        <div className="h-10 w-px bg-gray-300 sm:h-12" aria-hidden="true" />
 
-        <div className="relative h-12 w-28 sm:h-14 sm:w-32">
+        <div className="relative h-16 w-40 sm:h-20 sm:w-48">
           <Image src={config.emobilioLogo} alt="e-mobilio Logo" fill className="object-contain" />
         </div>
       </div>

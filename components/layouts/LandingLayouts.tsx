@@ -29,13 +29,13 @@ function tint(opacity: number) {
 }
 
 function Logos({ config, size = 'md' }: { config: PartnerConfig; size?: 'sm' | 'md' }) {
-  const box = size === 'sm' ? 'h-10 w-24' : 'h-12 w-28 sm:h-14 sm:w-32';
+  const box = size === 'sm' ? 'h-14 w-36' : 'h-16 w-40 sm:h-20 sm:w-48';
   return (
     <div className="flex items-center gap-5 sm:gap-7">
       <div className={`relative ${box}`}>
         <Image src={config.logo} alt={`${config.companyName} Logo`} fill className="object-contain" priority />
       </div>
-      <div className="h-8 w-px bg-gray-300" aria-hidden="true" />
+      <div className="h-10 w-px bg-gray-300 sm:h-12" aria-hidden="true" />
       <div className={`relative ${box}`}>
         <Image src={config.emobilioLogo} alt="e-mobilio Logo" fill className="object-contain" />
       </div>
