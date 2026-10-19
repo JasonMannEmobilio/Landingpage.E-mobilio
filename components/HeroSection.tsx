@@ -14,7 +14,8 @@ export function HeroSection({ config, heading, subline }: HeroSectionProps) {
   return (
     <section className="mb-8 flex flex-col items-center text-center">
       <div className="mb-6 flex items-center justify-center gap-6 sm:gap-8">
-        <div className="relative h-16 w-40 sm:h-20 sm:w-48">
+        {/* Das Partnerlogo fuehrt, e-mobilio tritt als Herausgeber zurueck. */}
+        <div className="relative h-20 w-48 sm:h-24 sm:w-60">
           <Image
             src={config.logo}
             alt={`${config.companyName} Logo`}
@@ -26,7 +27,7 @@ export function HeroSection({ config, heading, subline }: HeroSectionProps) {
 
         <div className="h-10 w-px bg-gray-300 sm:h-12" aria-hidden="true" />
 
-        <div className="relative h-16 w-40 sm:h-20 sm:w-48">
+        <div className="relative h-11 w-28 sm:h-12 sm:w-32">
           <Image src={config.emobilioLogo} alt="e-mobilio Logo" fill className="object-contain" />
         </div>
       </div>

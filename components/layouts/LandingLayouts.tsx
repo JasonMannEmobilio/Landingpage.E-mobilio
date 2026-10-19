@@ -29,14 +29,16 @@ function tint(opacity: number) {
 }
 
 function Logos({ config, size = 'md' }: { config: PartnerConfig; size?: 'sm' | 'md' }) {
-  const box = size === 'sm' ? 'h-14 w-36' : 'h-16 w-40 sm:h-20 sm:w-48';
+  // Partnerlogo fuehrt, e-mobilio tritt zurueck.
+  const partnerBox = size === 'sm' ? 'h-16 w-40' : 'h-20 w-48 sm:h-24 sm:w-60';
+  const emobilioBox = size === 'sm' ? 'h-10 w-24' : 'h-11 w-28 sm:h-12 sm:w-32';
   return (
     <div className="flex items-center gap-5 sm:gap-7">
-      <div className={`relative ${box}`}>
+      <div className={`relative ${partnerBox}`}>
         <Image src={config.logo} alt={`${config.companyName} Logo`} fill className="object-contain" priority />
       </div>
       <div className="h-10 w-px bg-gray-300 sm:h-12" aria-hidden="true" />
-      <div className={`relative ${box}`}>
+      <div className={`relative ${emobilioBox}`}>
         <Image src={config.emobilioLogo} alt="e-mobilio Logo" fill className="object-contain" />
       </div>
     </div>
