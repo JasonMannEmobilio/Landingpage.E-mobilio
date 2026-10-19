@@ -16,7 +16,7 @@
     "primaryColor": "#1a2b5f",
     "accentColor": "#f5c518",
     "backgroundColor": "#f6f7f9",
-    "fontFamily": "Inter, sans-serif"
+    "fontFamily": "Source Sans 3, sans-serif"
   },
   "formFields": {
     "showAnrede": true,

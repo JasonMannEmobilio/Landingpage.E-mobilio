@@ -93,7 +93,7 @@ export function CardActivation({ config, token }: CardActivationProps) {
         />
       </Field>
 
-      <div className="overflow-hidden rounded-xl bg-gray-100">
+      <div className="overflow-hidden rounded-xl">
         <CardImage config={config} />
       </div>
 

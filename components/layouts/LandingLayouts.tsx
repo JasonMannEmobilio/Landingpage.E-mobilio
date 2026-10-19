@@ -35,11 +35,11 @@ function Logos({ config, size = 'md' }: { config: PartnerConfig; size?: 'sm' | '
   return (
     <div className="flex items-center gap-5 sm:gap-7">
       <div className={`relative ${partnerBox}`}>
-        <Image src={config.logo} alt={`${config.companyName} Logo`} fill className="object-contain" priority />
+        <Image src={config.logo} alt={`${config.companyName} Logo`} fill className="object-contain mix-blend-multiply" priority />
       </div>
       <div className="h-10 w-px bg-gray-300 sm:h-12" aria-hidden="true" />
       <div className={`relative ${emobilioBox}`}>
-        <Image src={config.emobilioLogo} alt="e-mobilio Logo" fill className="object-contain" />
+        <Image src={config.emobilioLogo} alt="e-mobilio Logo" fill className="object-contain mix-blend-multiply" />
       </div>
     </div>
   );

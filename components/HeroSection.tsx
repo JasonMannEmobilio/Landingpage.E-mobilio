@@ -20,7 +20,7 @@ export function HeroSection({ config, heading, subline }: HeroSectionProps) {
             src={config.logo}
             alt={`${config.companyName} Logo`}
             fill
-            className="object-contain"
+            className="object-contain mix-blend-multiply"
             priority
           />
         </div>
@@ -28,7 +28,7 @@ export function HeroSection({ config, heading, subline }: HeroSectionProps) {
         <div className="h-10 w-px bg-gray-300 sm:h-12" aria-hidden="true" />
 
         <div className="relative h-11 w-28 sm:h-12 sm:w-32">
-          <Image src={config.emobilioLogo} alt="e-mobilio Logo" fill className="object-contain" />
+          <Image src={config.emobilioLogo} alt="e-mobilio Logo" fill className="object-contain mix-blend-multiply" />
         </div>
       </div>
 

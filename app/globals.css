@@ -17,13 +17,22 @@
   --color-button: #2d8a4e;
   --color-button-text: #ffffff;
   --color-bg: #ffffff;
-  --font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-family: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-headings: var(--font-heading), var(--font-body), system-ui, sans-serif;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-family);
+  /* 1.5-1.75 for body text (ui-ux-pro-max, Typography/Line Height). */
+  line-height: 1.6;
+}
+
+/* Headings use the display face; body keeps the reading face. */
+h1, h2, h3, h4 {
+  font-family: var(--font-headings);
+  line-height: 1.25;
 }
 
 /* Consistent focus treatment for every interactive element. */

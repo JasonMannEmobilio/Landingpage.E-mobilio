@@ -7,7 +7,10 @@ import React from 'react';
  * onto their CSS variable; anything else is passed through as a plain system stack.
  */
 const BUNDLED_FONTS: Record<string, string> = {
-  inter: 'var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif',
+  'source sans 3': 'var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif',
+  lexend: 'var(--font-heading), var(--font-body), system-ui, sans-serif',
+  // Kept so existing partner configs naming Inter still resolve to a loaded face.
+  inter: 'var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif',
 };
 
 function resolveFontFamily(fontFamily: string): string {

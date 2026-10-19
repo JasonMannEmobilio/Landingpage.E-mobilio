@@ -32,7 +32,7 @@ export default async function SuccessPage({ params }: SuccessPageProps) {
       <div className="w-full max-w-xl">
         <div className="rounded-2xl border border-gray-200/80 border-t-[3px] border-t-[var(--color-accent)] bg-white p-8 text-center shadow-sm">
           <div className="relative mx-auto mb-8 h-20 w-48">
-            <Image src={config.logo} alt={`${config.companyName} Logo`} fill className="object-contain" priority />
+            <Image src={config.logo} alt={`${config.companyName} Logo`} fill className="object-contain mix-blend-multiply" priority />
           </div>
 
           <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
